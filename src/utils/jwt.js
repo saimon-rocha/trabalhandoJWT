@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const moment = require('moment-timezone');
+import jwt from 'jsonwebtoken';
+import moment from 'moment-timezone';
 
-function generateToken(userId) {
-    const expiresIn = 10 * 60; // 10 minutos em segundos
+export default function generateToken(userId) {
+    const expiresIn = 10 * 60; // 10 minutos
 
     const token = jwt.sign(
         { userId },
@@ -10,7 +10,6 @@ function generateToken(userId) {
         { expiresIn }
     );
 
-    // Data/hora da expiração no horário de São Paulo
     const expiresAt = moment()
         .add(expiresIn, 'seconds')
         .tz('America/Sao_Paulo')
@@ -18,5 +17,3 @@ function generateToken(userId) {
 
     return { token, expiresIn, expiresAt };
 }
-
-module.exports = { generateToken };

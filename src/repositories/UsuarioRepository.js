@@ -1,33 +1,26 @@
-const db = require('../database/db');
-const bcrypt = require('bcrypt');
-const Usuario = require('../models/Usuario');
+import bcrypt from 'bcrypt';
+import Usuario from '../models/Usuario.js';
 
 class UsuarioRepository {
-    static async criar(usuario) {
-        const senhaHash = await bcrypt.hash(usuario.senha, 10);
+  async criar(usuario) {
+    const senhaHash = await bcrypt.hash(usuario.senha, 10);
 
-        const result = await db.query(
-            `INSERT INTO usuarios (nm_usuario, email, senha)
-             VALUES ($1, $2, $3)
-             RETURNING *`,
-            [usuario.nm_usuario, usuario.email, senhaHash]
-        );
+    return Usuario.create({
+      nm_usuario: usuario.nm_usuario,
+      email: usuario.email,
+      senha: senhaHash,
+    });
+  }
 
-        return new Usuario(result.rows[0]);
-    }
+  async buscarPorEmail(email) {
+    return Usuario.findOne({
+      where: { email }
+    });
+  }
 
-    static async buscarPorEmail(email) {
-        const result = await db.query(
-            `SELECT * FROM usuarios WHERE email = $1`,
-            [email]
-        );
-        if (!result.rows[0]) return null;
-        return new Usuario(result.rows[0]);
-    }
-
-    static async validarSenha(usuario, senhaDigitada) {
-        return bcrypt.compare(senhaDigitada, usuario.senha);
-    }
+  async validarSenha(usuario, senhaDigitada) {
+    return bcrypt.compare(senhaDigitada, usuario.senha);
+  }
 }
 
-module.exports = UsuarioRepository;
+export default new UsuarioRepository();

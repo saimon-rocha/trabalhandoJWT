@@ -1,16 +1,11 @@
-const express = require('express');
-const routes = express.Router();
-const inicialController = require('../controller/InicialController');
-const gerarToken = require('../controller/gerarTokenController');
-const authMiddleware = require('../middleware/auth.middleware');
+import { Router } from 'express';
 
-// login / gerar token → SEM middleware
-routes.post("/gerarToken", gerarToken.index);
+import authRoutes from './authRoutes.js';
+import inicialRoutes from './inicialRoutes.js';
 
-// rotas protegidas → COM middleware
-routes.get("/", authMiddleware, inicialController.index);
-routes.post("/", authMiddleware, inicialController.cad);
-routes.put("/edit", authMiddleware, inicialController.edit);
-routes.delete("/delete", authMiddleware, inicialController.delet);
+const router = Router();
 
-module.exports = routes;
+router.use('/auth', authRoutes);
+router.use('/inicial', inicialRoutes);
+
+export default router;

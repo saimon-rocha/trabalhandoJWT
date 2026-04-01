@@ -1,20 +1,19 @@
-// src/models/Usuario.js
-class Usuario {
-    constructor({ cd_usuario = null, nm_usuario, email, senha }) {
-        this.cd_usuario = cd_usuario;
-        this.nm_usuario = nm_usuario;
-        this.email = email;
-        this.senha = senha; // aqui ainda é hash se for persistir
-    }
+import { DataTypes } from 'sequelize';
+import connection from '../database/conexao.js';
 
-    // método para transformar em JSON sem expor senha
-    toJSON() {
-        return {
-            cd_usuario: this.cd_usuario,
-            nm_usuario: this.nm_usuario,
-            email: this.email,
-        };
-    }
-}
+const Usuario = connection.define('Usuario', {
+  cd_usuario: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  nm_usuario: DataTypes.STRING,
+  email: DataTypes.STRING,
+  senha: DataTypes.STRING,
+}, {
+  tableName: 'usuarios',
+  freezeTableName: true,
+  timestamps: false,
+});
 
-module.exports = Usuario;
+export default Usuario;

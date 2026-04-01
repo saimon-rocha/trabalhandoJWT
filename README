@@ -1,0 +1,102 @@
+# 📦 Arquitetura do Projeto
+
+Este projeto segue uma abordagem baseada em **Arquitetura em Camadas (Layered Architecture)**, com inspiração na **Clean Architecture**, visando organização, escalabilidade e fácil manutenção do código.
+
+---
+
+## 🧱 Layered Architecture
+
+A aplicação está estruturada nas seguintes camadas:
+
+```
+Controller → Service → Repository → Database
+```
+
+### 📌 Responsabilidades
+
+* **Controller**
+
+  * Responsável por lidar com requisições HTTP
+  * Recebe dados da requisição e retorna respostas
+
+* **Service**
+
+  * Contém as regras de negócio da aplicação
+  * Processa dados e valida regras
+
+* **Repository**
+
+  * Responsável pelo acesso aos dados
+  * Interage diretamente com o banco de dados
+
+* **Model**
+
+  * Define a estrutura dos dados
+  * Representa entidades da aplicação
+
+---
+
+## 🧼 Clean Architecture (Simplificada)
+
+O projeto também segue conceitos da Clean Architecture, separando responsabilidades em:
+
+* **Entrada (Interface)**
+
+  * Controllers (HTTP)
+
+* **Regra de Negócio**
+
+  * Services
+
+* **Infraestrutura**
+
+  * Repositórios e banco de dados
+
+```
+[Controller] → Interface (entrada)
+[Service]    → Regra de negócio
+[Repository] → Infraestrutura (DB)
+```
+
+---
+
+## 📝 Logger
+
+O projeto utiliza um sistema de logs com **pino**, que oferece:
+
+* Logs assíncronos (melhor performance)
+* Saída formatada no terminal
+* Substituição ao uso de `console.log`
+
+---
+
+## 🚀 Executando o Projeto
+
+### 📥 Instalar dependências
+
+```bash
+npm install
+```
+
+### ▶️ Rodar em ambiente de desenvolvimento
+
+```bash
+npm run dev
+```
+
+---
+
+## 📌 Requisitos
+
+* Node.js 18+
+* Banco de dados configurado (ex: PostgreSQL, MySQL)
+
+---
+
+## 💡 Observações
+
+* A aplicação só inicia após a conexão com o banco de dados ser validada
+* Estrutura preparada para crescimento e manutenção a longo prazo
+* Segue boas práticas de separação de responsabilidades
+
+---

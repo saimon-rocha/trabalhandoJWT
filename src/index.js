@@ -1,8 +1,9 @@
-const express = require('express');
-require('dotenv').config();
+import express from 'express';
+import 'dotenv/config';
 
-const db = require('./database/db');
-const routes = require('./routes');
+import conexao from './database/conexao.js';
+import routes from './routes/index.js';
+import logger from './config/logger.js';
 
 const app = express();
 
@@ -11,15 +12,19 @@ app.use(routes);
 
 const PORT = process.env.PORT || 3000;
 
-// 👇 testa banco antes de subir
-db.query('SELECT NOW()')
-    .then(() => {
-        console.log('Banco conectado com sucesso');
+// testa banco antes de subir
+async function startServer() {
+  try {
+    await conexao.query('SELECT NOW()');
 
-        app.listen(PORT, () => {
-            console.log(`Servidor rodando na porta ${PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.error('Erro ao conectar no banco:', err);
+    logger.info('✅ Banco conectado com sucesso');
+
+    app.listen(PORT, () => {
+      logger.info(`🚀 Servidor rodando na porta ${PORT}`);
     });
+  } catch (error) {
+    console.error('ERRO REAL:', error.parent); // 👈 ISSO AQUI
+  }
+}
+
+startServer();

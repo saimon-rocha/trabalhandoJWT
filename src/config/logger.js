@@ -1,31 +1,16 @@
-const pino = require('pino');
-const moment = require('moment-timezone');
+import pino from 'pino';
 
-const transport = pino.transport({
-    targets: [
-        {
-            target: 'pino-pretty',
-            level: 'info',
-            options: {
-                colorize: true,
-                messageFormat: '{msg}',
-                ignore: 'pid,hostname',
-                translateTime: false,
-                singleLine: false,
-            },
-        },
-    ],
+const logger = pino({
+  transport: {
+    target: 'pino-pretty',
+    options: {
+      colorize: true,
+      translateTime: 'SYS:dd/mm/yyyy HH:MM:ss',
+      messageFormat: '{msg}',
+      ignore: 'pid,hostname',
+      singleLine: false,
+    },
+  },
 });
 
-const logger = pino(
-    {
-        level: 'info',
-        timestamp: () =>
-            `,"time":"${moment()
-                .tz('America/Sao_Paulo')
-                .format('DD/MM/YYYY HH:mm:ss')}"`,
-    },
-    transport
-);
-
-module.exports = logger;
+export default logger;
