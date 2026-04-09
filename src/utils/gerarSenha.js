@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
 const SALT_ROUNDS = 10;
 
-bcrypt.hash('123456', SALT_ROUNDS).then(hash => console.log(hash));
+bcrypt.hash('password123', SALT_ROUNDS).then(hash => console.log(hash));

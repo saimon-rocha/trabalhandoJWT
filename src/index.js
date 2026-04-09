@@ -1,5 +1,7 @@
 import express from 'express';
 import 'dotenv/config';
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger.js";
 
 import conexao from './database/conexao.js';
 import routes from './routes/index.js';
@@ -9,6 +11,7 @@ const app = express();
 
 app.use(express.json());
 app.use(routes);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,7 +26,7 @@ async function startServer() {
       logger.info(`🚀 Servidor rodando na porta ${PORT}`);
     });
   } catch (error) {
-    console.error('ERRO REAL:', error.parent); // 👈 ISSO AQUI
+    console.error('Erro:', error.parent);
   }
 }
 

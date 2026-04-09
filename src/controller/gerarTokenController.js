@@ -16,9 +16,9 @@ class GerarTokenController {
             const senhaValida = await UsuarioRepository.validarSenha(usuario, senha);
             if (!senhaValida) return res.status(401).json({ message: 'Usuário ou senha inválidos' });
 
-            const { token, expiresIn, expiresAt } = generateToken(usuario.cd_usuario);
+            const { token, expiresIn, expiresInMinutes, expiresAt } = generateToken(usuario.cd_usuario);
 
-            return res.json({ token, expiresIn, expiresAt });
+            return res.json({ token, expiresIn, expiresInMinutes, expiresAt });
 
         } catch (error) {
             logger.info(error, "Ocorreu um erro na geração do Token");

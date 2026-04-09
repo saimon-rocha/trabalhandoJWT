@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import authRoutes from './authRoutes.js';
-import inicialRoutes from './inicialRoutes.js';
+import usuarioController from './usuarioRoutes.js';
 
 const router = Router();
 
 router.use('/auth', authRoutes);
-router.use('/inicial', inicialRoutes);
+router.use('/usuarios', usuarioController);
 
 export default router;

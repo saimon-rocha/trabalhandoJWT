@@ -3,11 +3,13 @@ import moment from 'moment-timezone';
 
 export default function generateToken(userId) {
     const expiresIn = 10 * 60; // 10 minutos
+    const expiresInMinutes = expiresIn / 60;
 
     const token = jwt.sign(
         { userId },
         process.env.JWT_SECRET,
-        { expiresIn }
+        { expiresIn },
+        { expiresInMinutes }
     );
 
     const expiresAt = moment()
@@ -15,5 +17,5 @@ export default function generateToken(userId) {
         .tz('America/Sao_Paulo')
         .format('YYYY-MM-DD HH:mm:ss');
 
-    return { token, expiresIn, expiresAt };
+    return { token, expiresIn, expiresInMinutes, expiresAt };
 }
