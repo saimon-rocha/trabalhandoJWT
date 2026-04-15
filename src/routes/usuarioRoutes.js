@@ -153,7 +153,7 @@ router.put('/:id', UsuarioController.edit);
  *         schema:
  *           type: integer
  *     responses:
- *       204:
+ *       200:
  *         description: Usuário removido com sucesso
  *       401:
  *         description: Não autorizado
