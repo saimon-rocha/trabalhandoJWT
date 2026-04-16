@@ -12,5 +12,4 @@ router.post('/', ClienteController.cad);
 router.put('/:id', ClienteController.edit);
 router.delete('/:id', ClienteController.delet);
 
-
 export default router;
