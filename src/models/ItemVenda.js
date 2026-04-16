@@ -4,6 +4,7 @@ import connection from '../database/conexao.js';
 const ItemVenda = connection.define('ItemVenda', {
   cd_venda: {
     type: DataTypes.INTEGER,
+    primaryKey: true,
     allowNull: false,
   },
   cd_produto: {

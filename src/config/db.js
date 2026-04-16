@@ -7,4 +7,10 @@ export default {
     database: process.env.DB_DATABASE,
     dialect: 'postgres',
     logging: false,
+
+    timezone: '-03:00',
+
+    dialectOptions: {
+        useUTC: false
+    }
 };

@@ -2,6 +2,11 @@ import { DataTypes } from 'sequelize';
 import connection from '../database/conexao.js';
 
 const Venda = connection.define('Venda', {
+  cd_venda: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
   cd_cliente: {
     type: DataTypes.INTEGER,
     allowNull: false,
